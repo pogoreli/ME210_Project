@@ -7,6 +7,7 @@
 #include <ME210NanoPots.h>
 #include <ME210NanoSDFile.h>
 #include <ME210NanoServos.h>
+#include "state0.h"
 
 #ifndef STATE30_H
 #define STATE30_H
@@ -16,11 +17,19 @@ class State30
 {
   public:
     int mainFunction();
+    State0 state0;
   private:
     ME210NanoLEDs LEDs;
     ME210NanoButtons buttons;
+    ME210NanoMotor motor;
+    ME210NanoAccel accel;
     int checkButtons();
     void showStateLEDs();
+    float LengthOfTrack = 30;
+    float getDistance();
+    void startCar();
+    void stopCar();
+    void recordTheData();
 
 };
 
