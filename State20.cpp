@@ -19,13 +19,23 @@ void State20::showStateLEDs()
 
 int State20::checkButtons()
 {
-  bool button4WasPressed = false;
-  unsigned long button4CheckTime;
-  bool button1WasPressed = false;
-  unsigned long button1CheckTime;
-  unsigned long checkInterval = 1000;
-
   buttons.checkStates();
+
+  if(ir.queryStart() == 0)
+  {
+    LEDs.setLEDColor(0,255,0,0);
+  }
+
+  if(ir.queryStart() == 1)
+  {
+    LEDs.setLEDColor(0,255,255,0);
+  }
+
+  if(ir.queryStart() == 2)
+  {
+    LEDs.setLEDColor(0,0,255,0);
+    return 10;
+  }
 
   if (buttons.wasPressed(4) && !button4WasPressed)
   {

@@ -5,7 +5,14 @@
 int State40::mainFunction()
 {
   showStateLEDs();
+  stopCar();
+  state0.closeData();
   return checkButtons();
+}
+
+void State40::stopCar()
+{
+  servos.setServoLocRaw(0, 0);
 }
 
 void State40::showStateLEDs()
@@ -19,12 +26,6 @@ void State40::showStateLEDs()
 
 int State40::checkButtons()
 {
-  bool button4WasPressed = false;
-  unsigned long button4CheckTime;
-  bool button1WasPressed = false;
-  unsigned long button1CheckTime;
-  unsigned long checkInterval = 1000;
-
   buttons.checkStates();
 
   if (buttons.wasPressed(4) && !button4WasPressed)

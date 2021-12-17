@@ -19,8 +19,14 @@ class State20
    private:
     ME210NanoLEDs LEDs;
     ME210NanoButtons buttons;
+    ME210NanoIR ir;
     int checkButtons();
     void showStateLEDs();
+    bool button4WasPressed = false;
+    unsigned long button4CheckTime;
+    bool button1WasPressed = false;
+    unsigned long button1CheckTime;
+    unsigned long checkInterval = 1000;
 
 };
 

@@ -1,32 +1,46 @@
 #include "state30.h"
 
-//float LengthOfTrack = 30;
-
-//Implementation
-
 int State30::mainFunction()
 {
   showStateLEDs();
 
   startCar();
+  count();
   recordTheData();
 
   Serial.begin(9600);
-  Serial.print(motor.getCounts());
-  Serial.print(" is ");
-  Serial.print(getDistance());
-  Serial.print("inch");
-  Serial.print(" out of ");
-  Serial.print(LengthOfTrack);
-  Serial.println();
+  Serial.println(counts);
   Serial.end();
-  
+
   return checkButtons();
+}
+//78 counts per wheel rotation = 7.53 inch
+
+float State30::getDistance()
+{
+  float c = (float)counts;
+  float rotations = c / 78;
+  float distance = rotations * 7.53;
+  return distance;
+}
+
+void State30::resetCounts()
+{
+  counts = 0;
+}
+
+void State30::count()
+{
+  if(digitalRead(ENC)!= previousCondition)
+  {
+    previousCondition =! previousCondition;
+    counts++;
+  }
 }
 
 void State30::recordTheData()
 {
-  float data[6] = {millis(), motor.getCounts(), motor.getVelRadSec(), accel.accX, accel.accY, accel.accZ};
+  float data[6] = {millis(), counts, motor.getVelRadSec(), accel.accX, accel.accY, accel.accZ};
   state0.recordData(data);
 }
 
@@ -41,21 +55,16 @@ void State30::showStateLEDs()
     
 void State30::startCar()
 {
-      //motor.getCountsAndReset();
+      motor.setPosDirection(false);
       motor.setPWMOutput(255);
 }
 
 void State30::stopCar()
 {
       motor.setPWMOutput(0);
-      motor.getCountsAndReset();
-      state0.closeData();
+      resetCounts();
 }
 
-float State30::getDistance()
-{
-  return (-motor.getCounts() / 68) * 5.9;
-}
 
 int State30::checkButtons()
 {

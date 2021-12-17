@@ -4,7 +4,6 @@
 #include <ME210NanoIR.h>
 #include <ME210NanoLEDs.h>
 #include <ME210NanoMotor.h>
-#include <ME210NanoPots.h>
 #include <ME210NanoSDFile.h>
 #include <ME210NanoServos.h>
 #include "state0.h"
@@ -25,11 +24,16 @@ class State30
     ME210NanoAccel accel;
     int checkButtons();
     void showStateLEDs();
-    float LengthOfTrack = 30;
+    float LengthOfTrack = 29;
     float getDistance();
     void startCar();
     void stopCar();
     void recordTheData();
+    boolean previousCondition = LOW;
+    int counts = 0;
+    void count();
+    int ENC = 2;
+    void resetCounts();
 
 };
 

@@ -20,6 +20,7 @@ int currentState = 0;
 void setup() 
 {
   state30.state0 = state0;
+  state40.state0 = state0;
 }
 
 void loop() 

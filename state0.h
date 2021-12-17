@@ -1,12 +1,6 @@
-#include <ME210Nano.h>
-#include <ME210NanoAccel.h>
 #include <ME210NanoButtons.h>
-#include <ME210NanoIR.h>
 #include <ME210NanoLEDs.h>
-#include <ME210NanoMotor.h>
-#include <ME210NanoPots.h>
 #include <ME210NanoSDFile.h>
-#include <ME210NanoServos.h>
 
 #ifndef STATE0_H
 #define STATE0_H
